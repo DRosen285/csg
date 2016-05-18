@@ -60,6 +60,7 @@ public:
     virtual vec Grad(const Topology &top, int bead) = 0;
     int BeadCount() { return _beads.size(); }
     int getBeadId(int bead) { return _beads[bead]; }
+    virtual const string Type() = 0;
     
 protected:
     int _index;
@@ -92,6 +93,7 @@ public:
         { assert(beads.size()<2); _beads.resize(2); for(int i=0; i<2; ++i) { _beads[i] = beads.front(); beads.pop_front(); }}
     double EvaluateVar(const Topology &top);
     vec Grad(const Topology &top, int bead);
+    string const Type() { return "Bond"; }
 
 private:
 };
@@ -109,6 +111,7 @@ public:
 
     double EvaluateVar(const Topology &top);
     vec Grad(const Topology &top, int bead);
+    string const Type() { return "Angle"; }
 
 private:
 };
@@ -126,6 +129,7 @@ public:
    
     double EvaluateVar(const Topology &top);
     vec Grad(const Topology &top, int bead) { assert(false); return vec(0,0,0); } // not implemented
+    string const Type() { return "Dihedral"; }
 
 private:
 };

@@ -112,6 +112,10 @@ void Imc::BeginEvaluate(Topology *top, Topology *top_atom)
         std::list<Interaction *> list = top->InteractionsInGroup(name);
         if (list.empty() )
             throw std::runtime_error("Bonded interaction '" + name + "' defined in options xml-file, but not in topology - check name definition in the mapping file again");
+
+        if ((*(list.begin()))->Type() == "Dihedral" ) {
+            _interactions[name]->_average.setPeriodic(true);
+        }
     }
 }
 
